@@ -43,40 +43,46 @@ mostrarDialog(){
 this.dialog_visible=true
 }
 guardarCategoria(){
-if(this.categoria_id>0){
-  this.categoriaService.funModificar(this.categoria_id, this.categoriaForm.value).subscribe(
-  (res:any)=>{
-    this.dialog_visible=false;
-    this.getCategorias();
-    this.categoria_id=-1;
-    this.alerta("Actualizado","la categoria se modifico con exito","success")
-  },
-  (error:any)=>{
-    this.alerta("Error Al Actualizar","verifica los datos","error")
-  }
+  if(this.categoria_id>0)
+    {
+    this.categoriaService.funModificar(this.categoria_id, this.categoriaForm.value).subscribe
+      (
+        (res:any)=>{
+          this.dialog_visible=false;
+          this.getCategorias();
+          this.categoria_id=-1;
+          this.alerta("Actualizado","la categoria se modifico con exito","success")
+        },
+        (error:any)=>{
+          this.alerta("Error Al Actualizar","verifica los datos","error")
+        }
   
-);
-this.categoriaForm.reset();
-}else{
-  this.categoriaService.funGuardar(this.categoriaForm.value).subscribe(
-    (res:any)=>{
-      this.dialog_visible=false
-      this.getCategorias();
-      this.alerta("Registrado","La categoria se creo con exito","success")
-    },
-    (error:any)=>{
-     this.alerta("Error al registro","verifica los datos","error")
-      
+      );
+      this.categoriaForm.reset();
     }
-  );
-}
-this.categoriaForm.reset(); 
+  else
+    {
+      this.categoriaService.funGuardar(this.categoriaForm.value).subscribe 
+      (
+        (res:any)=>
+          {
+          this.dialog_visible=false
+          this.getCategorias();
+          this.alerta("Registrado","La categoria se creo con exito","success")
+        }
+      ),
+        (error:any)=>{
+          this.alerta("Error al registro","verifica los datos","error")
+      
+        }
+        this.categoriaForm.reset();   
+    }
 }
 
 editarCategoria(cat:Categoria){
-this.dialog_visible=true
-this.categoria_id=cat.id
-this.categoriaForm.setValue({nombre: cat.nombre,detalle: cat.detalle})
+  this.dialog_visible=true
+  this.categoria_id=cat.id
+  this.categoriaForm.setValue({nombre: cat.nombre,detalle: cat.detalle})
 }
 eliminarCategoria(cat:Categoria){
 Swal.fire({
